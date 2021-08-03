@@ -1,0 +1,1258 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.CommonSchema.Services</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Telemetry.BaseExtensions">
+            <summary>
+            Extension class for the <see cref="T:Microsoft.Telemetry.Base"/> type.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Telemetry.BaseExtensions.CreateEnvelope``1(``0)">
+            <summary>
+            Creates an instance of <see cref="T:Microsoft.Telemetry.Envelope"/> bound to concrete type of
+            <see cref="T:Microsoft.Telemetry.Base"/>.
+            </summary>
+            <typeparam name="T">The concrete type of base.</typeparam>
+            <param name="target">The instance to create an envelope for.</param>
+            <returns>
+            An instance <see cref="T:Microsoft.Telemetry.Envelope"/> with the correct name and data element bonded
+            to the target.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Telemetry.BaseExtensions.CreateEnvelope(Microsoft.Telemetry.Base)">
+            <summary>
+            Creates an instance of <see cref="T:Microsoft.Telemetry.Envelope"/> bound to concrete type of
+            <see cref="T:Microsoft.Telemetry.Base"/>.
+            </summary>
+            <param name="target">The instance to create an envelope for.</param>
+            <returns>
+            An instance <see cref="T:Microsoft.Telemetry.Envelope"/> with the correct name and data element bonded
+            to the target.
+            </returns>
+        </member>
+        <member name="T:Microsoft.Telemetry.Envelope">
+            <summary>
+            Container class for all Common Schema events.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Telemetry.Envelope.App">
+            <summary>
+            Gets or sets the application extensions for the envelope. Fill this in when
+            doing flighting.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Telemetry.Envelope.Cloud">
+            <summary>
+            Gets the cloud extensions for the envelope.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Telemetry.Envelope.Device">
+            <summary>
+            Gets or sets the device extensions for the envelope. Fill this in if you have
+            access to the MSA device token.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Telemetry.Envelope.User">
+            <summary>
+            Gets or sets the user extensions for the envelope. Fill this in if you have
+            access to the MSA user token.
+            </summary>
+        </member>
+        <member name="T:Microsoft.CommonSchema.Services.Diagnostics.BondedBaseException">
+            <summary>
+            Thrown when SLL encounters an evenlope with a data section bonded to
+            <see cref="T:Microsoft.Telemetry.Base"/> as the concrete type.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Diagnostics.BondedBaseException.#ctor">
+            <summary>
+            Initializes a new instance of <see cref="T:Microsoft.CommonSchema.Services.Diagnostics.BondedBaseException"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Diagnostics.BondedBaseException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of <see cref="T:Microsoft.CommonSchema.Services.Diagnostics.BondedBaseException"/>.
+            </summary>
+            <param name="message">
+            The error message that explains the reason for the exception.
+            </param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Diagnostics.BondedBaseException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of <see cref="T:Microsoft.CommonSchema.Services.Diagnostics.BondedBaseException"/>.
+            </summary>
+            <param name="message">
+            The error message that explains the reason for the exception.
+            </param>
+            <param name="innerException">
+            The exception that is the cause of the current exception, or a null reference
+            (Nothing in Visual Basic) if no inner exception is specified.
+            </param>
+        </member>
+        <member name="T:Microsoft.CommonSchema.Services.Diagnostics.InternalErrors">
+            <summary>
+            The common schema APIs are generally designed to no throw exceptions on error
+            conditions. Instead it will report any errors to this class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Diagnostics.InternalErrors.ThrowSavedErrors">
+            <summary>
+            Throws an <see cref="T:System.AggregateException"/> with all the currently saved errors.
+            If there are no errors, no exception is thrown. When this call throws, the saved
+            errors are cleared.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CommonSchema.Services.Diagnostics.InternalErrors.HasSavedErrors">
+            <summary>
+            True if any common schema API has reported an error since the last call to
+            <see cref="M:Microsoft.CommonSchema.Services.Diagnostics.InternalErrors.ThrowSavedErrors"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CommonSchema.Services.Diagnostics.InternalErrors.MaxSavedErrors">
+            <summary>
+            Gets or sets the maximum number of errors this class will save between calls to
+            <see cref="M:Microsoft.CommonSchema.Services.Diagnostics.InternalErrors.ThrowSavedErrors"/>. If this limit is breached, the oldest errors are
+            removed first. Valid values range between 0 (save nothing) and 100. Any value
+            set outside these bounds is set to the nearest legal value.
+            </summary>
+        </member>
+        <member name="T:Microsoft.CommonSchema.Services.Diagnostics.LogFileCreatedEventArgs">
+            <summary>
+            Event arguments for log file creation events.
+            </summary>
+        </member>
+        <member name="T:Microsoft.CommonSchema.Services.Diagnostics.LogFileEventArgs">
+            <summary>
+            Base class for all log file event arguments.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CommonSchema.Services.Diagnostics.LogFileEventArgs.Topic">
+            <summary>
+            Gets the topic of the log file related to the event.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CommonSchema.Services.Diagnostics.LogFileEventArgs.Index">
+            <summary>
+            Gets the index of the log file related to the event.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CommonSchema.Services.Diagnostics.LogFileEventArgs.FilePath">
+            <summary>
+            Gets the file path of the log file related to the event.
+            </summary>
+        </member>
+        <member name="T:Microsoft.CommonSchema.Services.Diagnostics.LogFileExpiredEventArgs">
+            <summary>
+            Event arguments for log file expiration events.
+            </summary>
+        </member>
+        <member name="T:Microsoft.CommonSchema.Services.Diagnostics.LogFileMonitor">
+            <summary>
+            Provides events and counters for services to monitor and react to the internals
+            of the file logging system.
+            </summary>
+        </member>
+        <member name="E:Microsoft.CommonSchema.Services.Diagnostics.LogFileMonitor.FileCreated">
+            <summary>
+            Triggered whenever a new log file is created.
+            </summary>
+        </member>
+        <member name="E:Microsoft.CommonSchema.Services.Diagnostics.LogFileMonitor.FileExpired">
+            <summary>
+            Triggered whenever an old log file has expired and has been deleted.
+            </summary>
+        </member>
+        <member name="E:Microsoft.CommonSchema.Services.Diagnostics.LogFileMonitor.WriteError">
+            <summary>
+            Triggered whenever a write error occurrs.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CommonSchema.Services.Diagnostics.LogFileMonitor.BytesWritten">
+            <summary>
+            Gets the number of bytes written since startup.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CommonSchema.Services.Diagnostics.LogFileMonitor.EventsDiscarded">
+            <summary>
+            Gets the number of events discarded since startup. Events can be discarded due
+            to either the processing queue being full or a timeout when the file closes.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CommonSchema.Services.Diagnostics.LogFileMonitor.EventsEncountered">
+            <summary>
+            Gets the number of events sent to the logger since startup.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CommonSchema.Services.Diagnostics.LogFileMonitor.EventsFiltered">
+            <summary>
+            Gets the number of events blocked by the filter since startup.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CommonSchema.Services.Diagnostics.LogFileMonitor.EventsInQueue">
+            <summary>
+            Gets the number of events currently in the processing queue.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CommonSchema.Services.Diagnostics.LogFileMonitor.EventsRejected">
+            <summary>
+            Gets the number of events rejected by the processing queue because it was full since startup.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CommonSchema.Services.Diagnostics.LogFileMonitor.EventsWritten">
+            <summary>
+            Gets the number of events written to disk since startup.
+            </summary>
+        </member>
+        <member name="T:Microsoft.CommonSchema.Services.Diagnostics.LogFileWriteErrorEventArgs">
+            <summary>
+            Event arguments for log file write error events.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CommonSchema.Services.Diagnostics.LogFileWriteErrorEventArgs.Exception">
+            <summary>
+            Gets the exception that caused the event.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CommonSchema.Services.Diagnostics.LogFileWriteErrorEventArgs.ItemsQueued">
+            <summary>
+            Gets the number of events queued at the time the error event occurred.
+            </summary>
+        </member>
+        <member name="T:Microsoft.CommonSchema.Services.Listeners.CommonSchemaEventArgs">
+            <summary>
+            Event arguments for common schema logging events.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CommonSchema.Services.Listeners.CommonSchemaEventArgs.Payload">
+            <summary>
+            Gets the encoded payload that will be dispatched to the logging pipeline.
+            </summary>
+        </member>
+        <member name="T:Microsoft.CommonSchema.Services.Logging.CorrelationVector">
+            <summary>
+            This class represents a lightweight vector for identifying and measuring
+            causality.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CommonSchema.Services.Logging.CorrelationVector.HeaderName">
+            <summary>
+            This is the header that should be used between services to pass the correlation
+            vector.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.CorrelationVector.Extend(System.String)">
+            <summary>
+            Creates a new correlation vector by extending an existing value. This should be
+            done at the entry point of an operation. The result should be set to
+            <see cref="P:Microsoft.CommonSchema.Services.Logging.TransactionContext.Vector"/> on <see cref="P:Microsoft.CommonSchema.Services.Logging.Sll.Context"/>.
+            </summary>
+            <param name="correlationVector">
+            Taken from the message header indicated by <see cref="F:Microsoft.CommonSchema.Services.Logging.CorrelationVector.HeaderName"/>.
+            </param>
+            <returns>A new correlation vector extended from the current vector.</returns>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.CorrelationVector.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CommonSchema.Services.Logging.CorrelationVector"/> class. This
+            should only be called when no correlation vector was found in the message
+            header. The result should be set to <see cref="P:Microsoft.CommonSchema.Services.Logging.TransactionContext.Vector"/> on
+            <see cref="P:Microsoft.CommonSchema.Services.Logging.Sll.Context"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.CorrelationVector.Increment">
+            <summary>
+            Increments the current extension by one. Do this before passing the value to an
+            outbound message header.
+            </summary>
+            <returns>
+            The new value as a string that you can add to the outbound message header
+            indicated by <see cref="F:Microsoft.CommonSchema.Services.Logging.CorrelationVector.HeaderName"/>.
+            </returns>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.CorrelationVector.ToString">
+            <summary>
+            Returns a string that represents the current object.
+            </summary>
+            <returns>A string that represents the current object.</returns>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.CorrelationVector.Equals(Microsoft.CommonSchema.Services.Logging.CorrelationVector)">
+            <summary>
+            Determines whether two instances of the <see cref="T:Microsoft.CommonSchema.Services.Logging.CorrelationVector"/> class
+            are equal. 
+            </summary>
+            <param name="vector">
+            The correlation vector you want to compare with the current correlation vector.
+            </param>
+            <returns>
+            True if the specified correlation vector is equal to the current correlation
+            vector; otherwise, false.
+            </returns>
+        </member>
+        <member name="P:Microsoft.CommonSchema.Services.Logging.CorrelationVector.ValidateCorrelationVectorDuringCreation">
+            <summary>
+            Gets or sets a value indicating whether or not to validate the correlation
+            vector on creation.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CommonSchema.Services.Logging.CorrelationVector.Value">
+            <summary>
+            Gets the value of the correlation vector as a string.
+            </summary>
+        </member>
+        <member name="T:Microsoft.CommonSchema.Services.Listeners.CosmosEventListener">
+            <summary>
+            Dispatches Common Schema events to a file on disk suitable for upload to the SLL
+            Cosmos data stream.
+            </summary>
+        </member>
+        <member name="T:Microsoft.CommonSchema.Services.Listeners.CommonSchemaEventListener">
+            <summary>
+            Base class for all event listeners that attach to the common schema logging pipeline.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Listeners.CommonSchemaEventListener.#ctor(Microsoft.CommonSchema.Services.Listeners.EventFilter)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CommonSchema.Services.Listeners.CommonSchemaEventListener"/> class.
+            </summary>
+            <param name="filter">Determines which events will handled by the listener.</param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Listeners.CommonSchemaEventListener.Finalize">
+            <summary>
+            Finalizes an instance of the <see cref="T:Microsoft.CommonSchema.Services.Listeners.CommonSchemaEventListener"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Listeners.CommonSchemaEventListener.Dispose">
+            <summary>
+            Stops the listener from receiving <see cref="M:Microsoft.CommonSchema.Services.Listeners.CommonSchemaEventListener.OnEventWritten(Microsoft.CommonSchema.Services.Listeners.CommonSchemaEventArgs)"/> callbacks.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Listeners.CommonSchemaEventListener.Dispose(System.Boolean)">
+            <summary>
+            Stops the listener from receiving <see cref="M:Microsoft.CommonSchema.Services.Listeners.CommonSchemaEventListener.OnEventWritten(Microsoft.CommonSchema.Services.Listeners.CommonSchemaEventArgs)"/> callbacks.
+            </summary>
+            <param name="disposing">
+            Indicates whether or not this method was called from <see cref="M:Microsoft.CommonSchema.Services.Listeners.CommonSchemaEventListener.Dispose"/>
+            (true) or the finalizer (false).</param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Listeners.CommonSchemaEventListener.OnEventSourceCreated(Microsoft.Diagnostics.Tracing.EventSource)">
+            <summary>
+            Prevents derived classes from overriding this method.
+            </summary>
+            <param name="eventSource">The event source that was attached.</param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Listeners.CommonSchemaEventListener.OnEventWritten(Microsoft.Diagnostics.Tracing.EventWrittenEventArgs)">
+            <summary>
+            Prevents derived classes from overriding this method.
+            </summary>
+            <param name="eventData">The raw ETW event data.</param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Listeners.CommonSchemaEventListener.OnEventWritten(Microsoft.CommonSchema.Services.Listeners.CommonSchemaEventArgs)">
+            <summary>
+            This method is called whenever a common schema event that passes the filter is written.
+            </summary>
+            <param name="commonSchemaEventData">Common schema event arguments.</param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Listeners.CosmosEventListener.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CommonSchema.Services.Listeners.CosmosEventListener"/>.
+            </summary>
+            <param name="path">The path under which all the log files will be written.</param>
+            <param name="topic">The name that all the log files will start with.</param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Listeners.CosmosEventListener.#ctor(System.String,System.String,System.Int64,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CommonSchema.Services.Listeners.CosmosEventListener"/>.
+            </summary>
+            <param name="path">The path under which all the log files will be written.</param>
+            <param name="topic">The name that all the log files will start with.</param>
+            <param name="maxFileLengthBytes">The size of the file past which logs will roll over into a new file.</param>
+            <param name="maxFileCount">The maximum number of log files to keep on this topic. When new files roll over, old files will be deleted.</param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Listeners.CosmosEventListener.#ctor(System.String,System.String,Microsoft.CommonSchema.Services.Listeners.EventFilter)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CommonSchema.Services.Listeners.CosmosEventListener"/>.
+            </summary>
+            <param name="path">The path under which all the log files will be written.</param>
+            <param name="topic">The name that all the log files will start with.</param>
+            <param name="filter">Determines which events will handled by the listener.</param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Listeners.CosmosEventListener.#ctor(System.String,System.String,System.Int64,System.Int32,Microsoft.CommonSchema.Services.Listeners.EventFilter)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CommonSchema.Services.Listeners.CosmosEventListener"/>.
+            </summary>
+            <param name="path">The path under which all the log files will be written.</param>
+            <param name="topic">The name that all the log files will start with.</param>
+            <param name="maxFileLengthBytes">The size of the file past which logs will roll over into a new file.</param>
+            <param name="maxFileCount">The maximum number of log files to keep on this topic. When new files roll over, old files will be deleted.</param>
+            <param name="filter">Determines which events will handled by the listener.</param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Listeners.CosmosEventListener.Dispose(System.Boolean)">
+            <summary>
+            Stops the listener from writing events to the Cosmos log.
+            </summary>
+            <param name="disposing">
+            Indicates whether or not this method was called from <see cref="M:Microsoft.CommonSchema.Services.Listeners.CosmosEventListener.Dispose(System.Boolean)"/>
+            (true) or the finalizer (false).</param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Listeners.CosmosEventListener.OnEventWritten(Microsoft.CommonSchema.Services.Listeners.CommonSchemaEventArgs)">
+            <summary>
+            This method is called whenever a common schema event that passes the filter is written.
+            </summary>
+            <param name="commonSchemaEventData">Common schema event arguments.</param>
+        </member>
+        <member name="T:Microsoft.CommonSchema.Services.Listeners.EventSession">
+            <summary>
+            Allows the caller to configure and control an ETW event session for the SLLV2
+            provider.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Listeners.EventSession.#ctor(Microsoft.CommonSchema.Services.Listeners.EventSessionRealtimeConfiguration)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CommonSchema.Services.Listeners.EventSession"/> class.
+            </summary>
+            <param name="configuration">
+            Details about how the real-time session should be configured.
+            </param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Listeners.EventSession.#ctor(Microsoft.CommonSchema.Services.Listeners.EventSessionFileConfiguration)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CommonSchema.Services.Listeners.EventSession"/> class.
+            </summary>
+            <param name="configuration">
+            Details about how the file-backed session should be configured.
+            </param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Listeners.EventSession.Dispose">
+            <summary>
+            Disposes of the <see cref="T:Microsoft.CommonSchema.Services.Listeners.EventSession"/> class. Disposing of this instance
+            shuts down its related ETW session.
+            </summary>
+        </member>
+        <member name="T:Microsoft.CommonSchema.Services.Listeners.EventSessionFileConfiguration">
+            <summary>
+            Furnishes details about how to configure a file-based ETW session.
+            </summary>
+        </member>
+        <member name="T:Microsoft.CommonSchema.Services.Listeners.EventSessionRealtimeConfiguration">
+            <summary>
+            Furnishes details about how to configure a real-time ETW session.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Listeners.EventSessionRealtimeConfiguration.#ctor">
+            <summary>
+            Initializes a new instance of the
+            <see cref="T:Microsoft.CommonSchema.Services.Listeners.EventSessionRealtimeConfiguration"/> class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CommonSchema.Services.Listeners.EventSessionRealtimeConfiguration.AdditionalProviders">
+            <summary>
+            Gets or sets a list of any additional ETW providers to enable for the session.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CommonSchema.Services.Listeners.EventSessionRealtimeConfiguration.BufferSizeMegabytes">
+            <summary>
+            Gets or sets the amount of buffer to allocate for the session in the kernel. If
+            this value is set to anything below 1, it will default to 64 MB.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CommonSchema.Services.Listeners.EventSessionRealtimeConfiguration.EnableTimeout">
+            <summary>
+            Gets or sets the amount of time to synchronously wait for any provider to start
+            listening. Setting this to <see cref="F:System.TimeSpan.Zero"/> will enable the provider
+            asynchronously, but that may cause some events at the very beginning to be lost.
+            Default is one second.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CommonSchema.Services.Listeners.EventSessionRealtimeConfiguration.Level">
+            <summary>
+            Gets or sets the lowest severity SLL event level that the session will accept.
+            Default is <see cref="F:Microsoft.Diagnostics.Tracing.EventLevel.Verbose"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CommonSchema.Services.Listeners.EventSessionRealtimeConfiguration.MatchAnyKeywords">
+            <summary>
+            Gets or sets the SLL keyword flags that the session will accept. Events are
+            accepted if their keywords match any of these flags. If both the
+            <see cref="F:Microsoft.CommonSchema.Services.Logging.ControlKeywords.General"/> and
+            <see cref="F:Microsoft.CommonSchema.Services.Logging.ControlKeywords.Sensitive"/> flags are set simultaneously, then this
+            value will defaut to having <see cref="F:Microsoft.CommonSchema.Services.Logging.ControlKeywords.Sensitive"/> unset.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CommonSchema.Services.Listeners.EventSessionRealtimeConfiguration.Options">
+            <summary>
+            Gets or sets for how to open the trace session (and handle cases where the session
+            may already exist). Default is <see cref="F:Microsoft.Diagnostics.Tracing.Session.TraceEventSessionOptions.Create"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CommonSchema.Services.Listeners.EventSessionRealtimeConfiguration.SessionName">
+            <summary>
+            Gets or sets the name of the session. Default is "SLLV2-Realtime".
+            </summary>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Listeners.EventSessionFileConfiguration.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CommonSchema.Services.Listeners.EventSessionFileConfiguration"/>
+            class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CommonSchema.Services.Listeners.EventSessionFileConfiguration.DestinationFolder">
+            <summary>
+            Gets or sets the folder into which the session will write the logs. If the
+            specified folder does not exist, it will check the %DATADIR% environment
+            variable. If that folder does not exist, it will default to the current working
+            directory.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CommonSchema.Services.Listeners.EventSessionFileConfiguration.FileNamePrefix">
+            <summary>
+            Gets or sets a prefix that all file names written by the session will start
+            with. Default is "SLLV2".
+            </summary>
+        </member>
+        <member name="P:Microsoft.CommonSchema.Services.Listeners.EventSessionFileConfiguration.PurgeFilesTotalSizeMegabytes">
+            <summary>
+            Gets or sets the total size of all the log files in the folder that will trigger
+            a purge. Files will be deleted until the total is below this value. The files
+            with the oldest last write time will be deleted first. If the value is less than
+            2 MB it will default to 1 GB.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CommonSchema.Services.Listeners.EventSessionFileConfiguration.RolloverFileSizeMegabytes">
+            <summary>
+            Gets or sets the size of a log file that will trigger a rollover. The final size
+            of any give file may be above this value if there was a large amount of data in
+            the buffer when it was flushed. If the value is less than 1 MB it will default
+            to 128 MB. If the value is larger than
+            <see cref="P:Microsoft.CommonSchema.Services.Listeners.EventSessionFileConfiguration.PurgeFilesTotalSizeMegabytes"/> it will default to that value minus 1
+            MB.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CommonSchema.Services.Listeners.EventSessionFileConfiguration.RolloverInterval">
+            <summary>
+            Gets or sets the amount of time that will pass between automatic rollovers.
+            Rollovers are guaranteed to happen on this schedule regardless of the time of
+            the last size-based rollover. Default is one hour. If the value is less than one
+            minute, it will fall back to one minute.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CommonSchema.Services.Listeners.EventSessionFileConfiguration.TimestampFormat">
+            <summary>
+            Gets or sets the format specifier for the file name timestamp. See
+            <see cref="M:System.DateTime.ToString(System.String)"/> for details. If the value is invalid or
+            yields an empty string, it will default to "yyyy.MM.dd.HH.mm.ssZ".
+            </summary>
+        </member>
+        <member name="T:Microsoft.CommonSchema.Services.Logging.PolicyRegistration">
+            <summary>
+            Identifies a class as a policy registration type. Any public, static, read-only
+            fields that implement <see cref="T:Microsoft.CommonSchema.Services.Logging.ILoggingPolicy"/> defined on the types that
+            derive from this class will be automatically registered with the SLL framework.
+            </summary>
+        </member>
+        <member name="T:Microsoft.CommonSchema.Services.Logging.Single`1">
+            <summary>
+            Maintains a stable singleton reference to a given type.
+            </summary>
+            <typeparam name="T">The type to make a singleton.</typeparam>
+        </member>
+        <member name="F:Microsoft.CommonSchema.Services.Logging.Single`1.Current">
+            <summary>
+            The current value of the singleton.
+            </summary>
+        </member>
+        <member name="T:Microsoft.CommonSchema.Services.Logging.Sll">
+            <summary>
+            Global settings for SLL.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.Sll.IsLoggingEnabled">
+            <summary>
+            Determines whether logging is enabled for SLL at all. Useful for
+            short-circuiting expensive event constructions if they would never be logged.
+            This method may return true even when logging is disabled, but it will never
+            return false if logging is enabled.
+            </summary>
+            <returns>A value indicating whether or not logging is enabled.</returns>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.Sll.IsLoggingEnabled(Microsoft.Diagnostics.Tracing.EventLevel)">
+            <summary>
+            Determines whether logging is enabled for the given level. Useful for
+            short-circuiting expensive event constructions if they would never be logged.
+            This method may return true even when logging is disabled, but it will never
+            return false if logging is enabled.
+            </summary>
+            <param name="level">The level at which an event could be logged.</param>
+            <returns>A value indicating whether or not logging is enabled.</returns>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.Sll.IsLoggingEnabled(Microsoft.Diagnostics.Tracing.EventLevel,Microsoft.CommonSchema.Services.Logging.LogOption)">
+            <summary>
+            Determines whether logging is enabled for the given set of level and options.
+            Useful for short-circuiting expensive event constructions if they would never be
+            logged. This method may return true even when logging is disabled, but it will
+            never return false if logging is enabled.
+            </summary>
+            <param name="level">The level at which an event could be logged.</param>
+            <param name="options">The options enabled for an event.</param>
+            <returns>A value indicating whether or not logging is enabled.</returns>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.Sll.ResetContext">
+            <summary>
+            Resets the operation's transaction context. Useful for test initialization and cleanup.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CommonSchema.Services.Logging.Sll.Context">
+            <summary>
+            Gets a thread-agile transaction context for the current operation.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CommonSchema.Services.Logging.Sll.EnvelopeFiller">
+            <summary>
+            Gets or sets a delegate will that run on every event logged by SLL. This gives
+            the caller the opportunity to enrich the envelope with additional data or
+            override automatic values.
+            </summary>
+        </member>
+        <member name="T:Microsoft.CommonSchema.Services.Logging.TransactionContext">
+            <summary>
+            Encapsulates values bound to the call context of the current operation.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.TransactionContext.ChangeIncomingEvent``1(``0)">
+            <summary>
+            Sets the present state of the incoming QoS event that will be logged
+            upon completion of the transaction.
+            </summary>
+            <typeparam name="T">type of new event</typeparam>
+            <param name="newEvent">new event</param>
+        </member>
+        <member name="P:Microsoft.CommonSchema.Services.Logging.TransactionContext.Flight">
+            <summary>
+            Gets or sets the flight for the transaction. The value is provided by the
+            flighting subsystem.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CommonSchema.Services.Logging.TransactionContext.Incoming">
+            <summary>
+            Gets the present state of the incoming QoS event that will be logged
+            upon completion of the transaction.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CommonSchema.Services.Logging.TransactionContext.Outgoing">
+            <summary>
+            Gets or sets the present state of the outgoing QoS event header that will be
+            logged upon the completion of a client call.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CommonSchema.Services.Logging.TransactionContext.Vector">
+            <summary>
+            Gets or sets the correlation vector for the transaction.
+            </summary>
+        </member>
+        <member name="T:Microsoft.CommonSchema.Services.Listeners.EventFilter">
+            <summary>
+            Determines which events will be accepted or rejected by
+            <see cref="T:Microsoft.CommonSchema.Services.Listeners.CommonSchemaEventListener"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Listeners.EventFilter.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CommonSchema.Services.Listeners.EventFilter"/> class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CommonSchema.Services.Listeners.EventFilter.Arguments">
+            <summary>
+            Gets or sets a dictionary of additional arguments to pass the the event
+            listener.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CommonSchema.Services.Listeners.EventFilter.Level">
+            <summary>
+            Gets or sets the level to filter. Only events of this level and more severe will
+            be logged.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CommonSchema.Services.Listeners.EventFilter.MatchAnyKeywords">
+            <summary>
+            Gets or sets the keyword mask. Only events flagged with at least one of these
+            keywords will be logged.
+            </summary>
+        </member>
+        <member name="T:Microsoft.CommonSchema.Services.Listeners.EventSessionProviderConfiguration">
+            <summary>
+            Furnishes details about how to configure individual ETW providers for a session.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Listeners.EventSessionProviderConfiguration.#ctor">
+            <summary>
+            Initializes a new instance of the
+            <see cref="T:Microsoft.CommonSchema.Services.Listeners.EventSessionProviderConfiguration"/> class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CommonSchema.Services.Listeners.EventSessionProviderConfiguration.Level">
+            <summary>
+            Gets or sets the lowest severity event level that the session will accept. Default is <see cref="F:Microsoft.Diagnostics.Tracing.EventLevel.Verbose"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CommonSchema.Services.Listeners.EventSessionProviderConfiguration.MatchAnyKeywords">
+            <summary>
+            Gets or sets the keyword flags that the session will accept. Events are accepted
+            if their keywords match any of these flags. Default is all flags enabled.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CommonSchema.Services.Listeners.EventSessionProviderConfiguration.Provider">
+            <summary>
+            Gets or sets the Provider GUID to enable for the session.
+            </summary>
+        </member>
+        <member name="T:Microsoft.CommonSchema.Services.Logging.ControlKeywords">
+            <summary>
+            Defines event keywords reserved for controlling where and how the SLL events are
+            logged.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CommonSchema.Services.Logging.ControlKeywords.General">
+            <summary>
+            Events intended for general purpose logging. This keyword is included on both
+            standard and real time events.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CommonSchema.Services.Logging.ControlKeywords.Realtime">
+            <summary>
+            Events intended for real time logging. This keyword is only included on real
+            time events.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CommonSchema.Services.Logging.ControlKeywords.Sensitive">
+            <summary>
+            Events that include sensitive information. It is mutually exclusive with
+            General.
+            </summary>
+        </member>
+        <member name="T:Microsoft.CommonSchema.Services.Logging.ILoggingPolicy">
+            <summary>
+            Identifies a class as a logging policy that can be registered and unregistered.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.ILoggingPolicy.Register">
+            <summary>
+            Registers the logging policy with the SLL framework. It is safe for implementers
+            to assume that this method will only be called once per instance, and not be
+            called again until its return value is disposed of.
+            </summary>
+            <returns>
+            A reference that will unregister the policy when it is disposed.
+            </returns>
+        </member>
+        <member name="T:Microsoft.CommonSchema.Services.Logging.LoggingExtensions">
+            <summary>
+            Extension class for the <see cref="T:Microsoft.Telemetry.Base"/> and <see cref="T:Microsoft.Telemetry.Envelope"/> types.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.Log``1(``0,Microsoft.Diagnostics.Tracing.EventLevel)">
+            <summary>
+            Logs an event, automatically creating the correct envelope for it.
+            </summary>
+            <typeparam name="T">A type derived from <see cref="T:Microsoft.Telemetry.Base"/>.</typeparam>
+            <param name="target">The event to log.</param>
+            <param name="eventLevel">The level to log the event at.</param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.Log``1(``0,Microsoft.Diagnostics.Tracing.EventLevel,Microsoft.CommonSchema.Services.Logging.LogOption)">
+            <summary>
+            Logs an event, automatically creating the correct envelope for it.
+            </summary>
+            <typeparam name="T">A type derived from <see cref="T:Microsoft.Telemetry.Base"/>.</typeparam>
+            <param name="target">The event to log.</param>
+            <param name="eventLevel">The level to log the event at.</param>
+            <param name="options">Additional options for how to log the event.</param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.Log``1(``0,Microsoft.Diagnostics.Tracing.EventLevel,System.Action{Microsoft.Telemetry.Envelope})">
+            <summary>
+            Logs an event, automatically creating the correct envelope for it.
+            </summary>
+            <typeparam name="T">A type derived from <see cref="T:Microsoft.Telemetry.Base"/>.</typeparam>
+            <param name="target">The event to log.</param>
+            <param name="eventLevel">The level to log the event at.</param>
+            <param name="fillEnvelope">
+            A delegate that can enrich or override values in the envelope.
+            </param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.Log``1(``0,Microsoft.Diagnostics.Tracing.EventLevel,Microsoft.CommonSchema.Services.Logging.LogOption,System.Action{Microsoft.Telemetry.Envelope})">
+            <summary>
+            Logs an event, automatically creating the correct envelope for it.
+            </summary>
+            <typeparam name="T">A type derived from <see cref="T:Microsoft.Telemetry.Base"/>.</typeparam>
+            <param name="target">The event to log.</param>
+            <param name="eventLevel">The level to log the event at.</param>
+            <param name="options">Additional options for how to log the event.</param>
+            <param name="fillEnvelope">
+            A delegate that can enrich or override values in the envelope.
+            </param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.Log(Microsoft.Telemetry.Envelope,Microsoft.Diagnostics.Tracing.EventLevel)">
+            <summary>
+            Logs an event whose envelope is already created.
+            </summary>
+            <param name="target">The event to log.</param>
+            <param name="eventLevel">The level to log the event at.</param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.Log(Microsoft.Telemetry.Envelope,Microsoft.Diagnostics.Tracing.EventLevel,Microsoft.CommonSchema.Services.Logging.LogOption)">
+            <summary>
+            Logs an event whose envelope is already created.
+            </summary>
+            <param name="target">The event to log.</param>
+            <param name="eventLevel">The level to log the event at.</param>
+            <param name="options">Additional options for how to log the event.</param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.Log(Microsoft.Telemetry.Envelope,Microsoft.Diagnostics.Tracing.EventLevel,System.Action{Microsoft.Telemetry.Envelope})">
+            <summary>
+            Logs an event whose envelope is already created.
+            </summary>
+            <param name="target">The event to log.</param>
+            <param name="eventLevel">The level to log the event at.</param>
+            <param name="fillEnvelope">
+            A delegate that can enrich or override values in the envelope.
+            </param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.Log(Microsoft.Telemetry.Envelope,Microsoft.Diagnostics.Tracing.EventLevel,Microsoft.CommonSchema.Services.Logging.LogOption,System.Action{Microsoft.Telemetry.Envelope})">
+            <summary>
+            Logs an event whose envelope is already created.
+            </summary>
+            <param name="target">The event to log.</param>
+            <param name="eventLevel">The level to log the event at.</param>
+            <param name="options">Additional options for how to log the event.</param>
+            <param name="fillEnvelope">
+            A delegate that can enrich or override values in the envelope.
+            </param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogAlways``1(``0)">
+            <summary>
+            Logs an event always, automatically creating the correct envelope for it.
+            </summary>
+            <typeparam name="T">A type derived from <see cref="T:Microsoft.Telemetry.Base"/>.</typeparam>
+            <param name="target">The event to log.</param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogAlways``1(``0,Microsoft.CommonSchema.Services.Logging.LogOption)">
+            <summary>
+            Logs an event always, automatically creating the correct envelope for it.
+            </summary>
+            <typeparam name="T">A type derived from <see cref="T:Microsoft.Telemetry.Base"/>.</typeparam>
+            <param name="target">The event to log.</param>
+            <param name="options">Additional options for how to log the event.</param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogAlways``1(``0,System.Action{Microsoft.Telemetry.Envelope})">
+            <summary>
+            Logs an event always, automatically creating the correct envelope for it.
+            </summary>
+            <typeparam name="T">A type derived from <see cref="T:Microsoft.Telemetry.Base"/>.</typeparam>
+            <param name="target">The event to log.</param>
+            <param name="fillEnvelope">
+            A delegate that can enrich or override values in the envelope.
+            </param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogAlways``1(``0,Microsoft.CommonSchema.Services.Logging.LogOption,System.Action{Microsoft.Telemetry.Envelope})">
+            <summary>
+            Logs an event always, automatically creating the correct envelope for it.
+            </summary>
+            <typeparam name="T">A type derived from <see cref="T:Microsoft.Telemetry.Base"/>.</typeparam>
+            <param name="target">The event to log.</param>
+            <param name="options">Additional options for how to log the event.</param>
+            <param name="fillEnvelope">
+            A delegate that can enrich or override values in the envelope.
+            </param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogAlways(Microsoft.Telemetry.Envelope)">
+            <summary>
+            Logs an event whose envelope is already created always.
+            </summary>
+            <param name="target">The event to log.</param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogAlways(Microsoft.Telemetry.Envelope,Microsoft.CommonSchema.Services.Logging.LogOption)">
+            <summary>
+            Logs an event whose envelope is already created always.
+            </summary>
+            <param name="target">The event to log.</param>
+            <param name="options">Additional options for how to log the event.</param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogAlways(Microsoft.Telemetry.Envelope,System.Action{Microsoft.Telemetry.Envelope})">
+            <summary>
+            Logs an event whose envelope is already created always.
+            </summary>
+            <param name="target">The event to log.</param>
+            <param name="fillEnvelope">
+            A delegate that can enrich or override values in the envelope.
+            </param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogAlways(Microsoft.Telemetry.Envelope,Microsoft.CommonSchema.Services.Logging.LogOption,System.Action{Microsoft.Telemetry.Envelope})">
+            <summary>
+            Logs an event whose envelope is already created always.
+            </summary>
+            <param name="target">The event to log.</param>
+            <param name="options">Additional options for how to log the event.</param>
+            <param name="fillEnvelope">
+            A delegate that can enrich or override values in the envelope.
+            </param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogCritical``1(``0)">
+            <summary>
+            Logs an event as critical, automatically creating the correct envelope for it.
+            </summary>
+            <typeparam name="T">A type derived from <see cref="T:Microsoft.Telemetry.Base"/>.</typeparam>
+            <param name="target">The event to log.</param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogCritical``1(``0,Microsoft.CommonSchema.Services.Logging.LogOption)">
+            <summary>
+            Logs an event as critical, automatically creating the correct envelope for it.
+            </summary>
+            <typeparam name="T">A type derived from <see cref="T:Microsoft.Telemetry.Base"/>.</typeparam>
+            <param name="target">The event to log.</param>
+            <param name="options">Additional options for how to log the event.</param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogCritical``1(``0,System.Action{Microsoft.Telemetry.Envelope})">
+            <summary>
+            Logs an event as critical, automatically creating the correct envelope for it.
+            </summary>
+            <typeparam name="T">A type derived from <see cref="T:Microsoft.Telemetry.Base"/>.</typeparam>
+            <param name="target">The event to log.</param>
+            <param name="fillEnvelope">
+            A delegate that can enrich or override values in the envelope.
+            </param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogCritical``1(``0,Microsoft.CommonSchema.Services.Logging.LogOption,System.Action{Microsoft.Telemetry.Envelope})">
+            <summary>
+            Logs an event as critical, automatically creating the correct envelope for it.
+            </summary>
+            <typeparam name="T">A type derived from <see cref="T:Microsoft.Telemetry.Base"/>.</typeparam>
+            <param name="target">The event to log.</param>
+            <param name="options">Additional options for how to log the event.</param>
+            <param name="fillEnvelope">
+            A delegate that can enrich or override values in the envelope.
+            </param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogCritical(Microsoft.Telemetry.Envelope)">
+            <summary>
+            Logs an event whose envelope is already created as critical.
+            </summary>
+            <param name="target">The event to log.</param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogCritical(Microsoft.Telemetry.Envelope,Microsoft.CommonSchema.Services.Logging.LogOption)">
+            <summary>
+            Logs an event whose envelope is already created as critical.
+            </summary>
+            <param name="target">The event to log.</param>
+            <param name="options">Additional options for how to log the event.</param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogCritical(Microsoft.Telemetry.Envelope,System.Action{Microsoft.Telemetry.Envelope})">
+            <summary>
+            Logs an event whose envelope is already created as critical.
+            </summary>
+            <param name="target">The event to log.</param>
+            <param name="fillEnvelope">
+            A delegate that can enrich or override values in the envelope.
+            </param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogCritical(Microsoft.Telemetry.Envelope,Microsoft.CommonSchema.Services.Logging.LogOption,System.Action{Microsoft.Telemetry.Envelope})">
+            <summary>
+            Logs an event whose envelope is already created as critical.
+            </summary>
+            <param name="target">The event to log.</param>
+            <param name="options">Additional options for how to log the event.</param>
+            <param name="fillEnvelope">
+            A delegate that can enrich or override values in the envelope.
+            </param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogError``1(``0)">
+            <summary>
+            Logs an event as an error, automatically creating the correct envelope for it.
+            </summary>
+            <typeparam name="T">A type derived from <see cref="T:Microsoft.Telemetry.Base"/>.</typeparam>
+            <param name="target">The event to log.</param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogError``1(``0,Microsoft.CommonSchema.Services.Logging.LogOption)">
+            <summary>
+            Logs an event as an error, automatically creating the correct envelope for it.
+            </summary>
+            <typeparam name="T">A type derived from <see cref="T:Microsoft.Telemetry.Base"/>.</typeparam>
+            <param name="target">The event to log.</param>
+            <param name="options">Additional options for how to log the event.</param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogError``1(``0,System.Action{Microsoft.Telemetry.Envelope})">
+            <summary>
+            Logs an event as an error, automatically creating the correct envelope for it.
+            </summary>
+            <typeparam name="T">A type derived from <see cref="T:Microsoft.Telemetry.Base"/>.</typeparam>
+            <param name="target">The event to log.</param>
+            <param name="fillEnvelope">
+            A delegate that can enrich or override values in the envelope.
+            </param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogError``1(``0,Microsoft.CommonSchema.Services.Logging.LogOption,System.Action{Microsoft.Telemetry.Envelope})">
+            <summary>
+            Logs an event as an error, automatically creating the correct envelope for it.
+            </summary>
+            <typeparam name="T">A type derived from <see cref="T:Microsoft.Telemetry.Base"/>.</typeparam>
+            <param name="target">The event to log.</param>
+            <param name="options">Additional options for how to log the event.</param>
+            <param name="fillEnvelope">
+            A delegate that can enrich or override values in the envelope.
+            </param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogError(Microsoft.Telemetry.Envelope)">
+            <summary>
+            Logs an event whose envelope is already created as an error.
+            </summary>
+            <param name="target">The event to log.</param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogError(Microsoft.Telemetry.Envelope,Microsoft.CommonSchema.Services.Logging.LogOption)">
+            <summary>
+            Logs an event whose envelope is already created as an error.
+            </summary>
+            <param name="target">The event to log.</param>
+            <param name="options">Additional options for how to log the event.</param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogError(Microsoft.Telemetry.Envelope,System.Action{Microsoft.Telemetry.Envelope})">
+            <summary>
+            Logs an event whose envelope is already created as an error.
+            </summary>
+            <param name="target">The event to log.</param>
+            <param name="fillEnvelope">
+            A delegate that can enrich or override values in the envelope.
+            </param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogError(Microsoft.Telemetry.Envelope,Microsoft.CommonSchema.Services.Logging.LogOption,System.Action{Microsoft.Telemetry.Envelope})">
+            <summary>
+            Logs an event whose envelope is already created as an error.
+            </summary>
+            <param name="target">The event to log.</param>
+            <param name="options">Additional options for how to log the event.</param>
+            <param name="fillEnvelope">
+            A delegate that can enrich or override values in the envelope.
+            </param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogWarning``1(``0)">
+            <summary>
+            Logs an event as a warning, automatically creating the correct envelope for it.
+            </summary>
+            <typeparam name="T">A type derived from <see cref="T:Microsoft.Telemetry.Base"/>.</typeparam>
+            <param name="target">The event to log.</param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogWarning``1(``0,Microsoft.CommonSchema.Services.Logging.LogOption)">
+            <summary>
+            Logs an event as a warning, automatically creating the correct envelope for it.
+            </summary>
+            <typeparam name="T">A type derived from <see cref="T:Microsoft.Telemetry.Base"/>.</typeparam>
+            <param name="target">The event to log.</param>
+            <param name="options">Additional options for how to log the event.</param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogWarning``1(``0,System.Action{Microsoft.Telemetry.Envelope})">
+            <summary>
+            Logs an event as a warning, automatically creating the correct envelope for it.
+            </summary>
+            <typeparam name="T">A type derived from <see cref="T:Microsoft.Telemetry.Base"/>.</typeparam>
+            <param name="target">The event to log.</param>
+            <param name="fillEnvelope">
+            A delegate that can enrich or override values in the envelope.
+            </param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogWarning``1(``0,Microsoft.CommonSchema.Services.Logging.LogOption,System.Action{Microsoft.Telemetry.Envelope})">
+            <summary>
+            Logs an event as a warning, automatically creating the correct envelope for it.
+            </summary>
+            <typeparam name="T">A type derived from <see cref="T:Microsoft.Telemetry.Base"/>.</typeparam>
+            <param name="target">The event to log.</param>
+            <param name="options">Additional options for how to log the event.</param>
+            <param name="fillEnvelope">
+            A delegate that can enrich or override values in the envelope.
+            </param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogWarning(Microsoft.Telemetry.Envelope)">
+            <summary>
+            Logs an event whose envelope is already created as a warning.
+            </summary>
+            <param name="target">The event to log.</param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogWarning(Microsoft.Telemetry.Envelope,Microsoft.CommonSchema.Services.Logging.LogOption)">
+            <summary>
+            Logs an event whose envelope is already created as a warning.
+            </summary>
+            <param name="target">The event to log.</param>
+            <param name="options">Additional options for how to log the event.</param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogWarning(Microsoft.Telemetry.Envelope,System.Action{Microsoft.Telemetry.Envelope})">
+            <summary>
+            Logs an event whose envelope is already created as a warning.
+            </summary>
+            <param name="target">The event to log.</param>
+            <param name="fillEnvelope">
+            A delegate that can enrich or override values in the envelope.
+            </param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogWarning(Microsoft.Telemetry.Envelope,Microsoft.CommonSchema.Services.Logging.LogOption,System.Action{Microsoft.Telemetry.Envelope})">
+            <summary>
+            Logs an event whose envelope is already created as a warning.
+            </summary>
+            <param name="target">The event to log.</param>
+            <param name="options">Additional options for how to log the event.</param>
+            <param name="fillEnvelope">
+            A delegate that can enrich or override values in the envelope.
+            </param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogInformational``1(``0)">
+            <summary>
+            Logs an event as informational, automatically creating the correct envelope for it.
+            </summary>
+            <typeparam name="T">A type derived from <see cref="T:Microsoft.Telemetry.Base"/>.</typeparam>
+            <param name="target">The event to log.</param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogInformational``1(``0,Microsoft.CommonSchema.Services.Logging.LogOption)">
+            <summary>
+            Logs an event as informational, automatically creating the correct envelope for it.
+            </summary>
+            <typeparam name="T">A type derived from <see cref="T:Microsoft.Telemetry.Base"/>.</typeparam>
+            <param name="target">The event to log.</param>
+            <param name="options">Additional options for how to log the event.</param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogInformational``1(``0,System.Action{Microsoft.Telemetry.Envelope})">
+            <summary>
+            Logs an event as informational, automatically creating the correct envelope for it.
+            </summary>
+            <typeparam name="T">A type derived from <see cref="T:Microsoft.Telemetry.Base"/>.</typeparam>
+            <param name="target">The event to log.</param>
+            <param name="fillEnvelope">
+            A delegate that can enrich or override values in the envelope.
+            </param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogInformational``1(``0,Microsoft.CommonSchema.Services.Logging.LogOption,System.Action{Microsoft.Telemetry.Envelope})">
+            <summary>
+            Logs an event as informational, automatically creating the correct envelope for it.
+            </summary>
+            <typeparam name="T">A type derived from <see cref="T:Microsoft.Telemetry.Base"/>.</typeparam>
+            <param name="target">The event to log.</param>
+            <param name="options">Additional options for how to log the event.</param>
+            <param name="fillEnvelope">
+            A delegate that can enrich or override values in the envelope.
+            </param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogInformational(Microsoft.Telemetry.Envelope)">
+            <summary>
+            Logs an event whose envelope is already created as informational.
+            </summary>
+            <param name="target">The event to log.</param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogInformational(Microsoft.Telemetry.Envelope,Microsoft.CommonSchema.Services.Logging.LogOption)">
+            <summary>
+            Logs an event whose envelope is already created as informational.
+            </summary>
+            <param name="target">The event to log.</param>
+            <param name="options">Additional options for how to log the event.</param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogInformational(Microsoft.Telemetry.Envelope,System.Action{Microsoft.Telemetry.Envelope})">
+            <summary>
+            Logs an event whose envelope is already created as informational.
+            </summary>
+            <param name="target">The event to log.</param>
+            <param name="fillEnvelope">
+            A delegate that can enrich or override values in the envelope.
+            </param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogInformational(Microsoft.Telemetry.Envelope,Microsoft.CommonSchema.Services.Logging.LogOption,System.Action{Microsoft.Telemetry.Envelope})">
+            <summary>
+            Logs an event whose envelope is already created as informational.
+            </summary>
+            <param name="target">The event to log.</param>
+            <param name="options">Additional options for how to log the event.</param>
+            <param name="fillEnvelope">
+            A delegate that can enrich or override values in the envelope.
+            </param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogVerbose``1(``0)">
+            <summary>
+            Logs an event as verbose, automatically creating the correct envelope for it.
+            </summary>
+            <typeparam name="T">A type derived from <see cref="T:Microsoft.Telemetry.Base"/>.</typeparam>
+            <param name="target">The event to log.</param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogVerbose``1(``0,Microsoft.CommonSchema.Services.Logging.LogOption)">
+            <summary>
+            Logs an event as verbose, automatically creating the correct envelope for it.
+            </summary>
+            <typeparam name="T">A type derived from <see cref="T:Microsoft.Telemetry.Base"/>.</typeparam>
+            <param name="target">The event to log.</param>
+            <param name="options">Additional options for how to log the event.</param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogVerbose``1(``0,System.Action{Microsoft.Telemetry.Envelope})">
+            <summary>
+            Logs an event as verbose, automatically creating the correct envelope for it.
+            </summary>
+            <typeparam name="T">A type derived from <see cref="T:Microsoft.Telemetry.Base"/>.</typeparam>
+            <param name="target">The event to log.</param>
+            <param name="fillEnvelope">
+            A delegate that can enrich or override values in the envelope.
+            </param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogVerbose``1(``0,Microsoft.CommonSchema.Services.Logging.LogOption,System.Action{Microsoft.Telemetry.Envelope})">
+            <summary>
+            Logs an event as verbose, automatically creating the correct envelope for it.
+            </summary>
+            <typeparam name="T">A type derived from <see cref="T:Microsoft.Telemetry.Base"/>.</typeparam>
+            <param name="target">The event to log.</param>
+            <param name="options">Additional options for how to log the event.</param>
+            <param name="fillEnvelope">
+            A delegate that can enrich or override values in the envelope.
+            </param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogVerbose(Microsoft.Telemetry.Envelope)">
+            <summary>
+            Logs an event whose envelope is already created as verbose.
+            </summary>
+            <param name="target">The event to log.</param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogVerbose(Microsoft.Telemetry.Envelope,Microsoft.CommonSchema.Services.Logging.LogOption)">
+            <summary>
+            Logs an event whose envelope is already created as verbose.
+            </summary>
+            <param name="target">The event to log.</param>
+            <param name="options">Additional options for how to log the event.</param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogVerbose(Microsoft.Telemetry.Envelope,System.Action{Microsoft.Telemetry.Envelope})">
+            <summary>
+            Logs an event whose envelope is already created as verbose.
+            </summary>
+            <param name="target">The event to log.</param>
+            <param name="fillEnvelope">
+            A delegate that can enrich or override values in the envelope.
+            </param>
+        </member>
+        <member name="M:Microsoft.CommonSchema.Services.Logging.LoggingExtensions.LogVerbose(Microsoft.Telemetry.Envelope,Microsoft.CommonSchema.Services.Logging.LogOption,System.Action{Microsoft.Telemetry.Envelope})">
+            <summary>
+            Logs an event whose envelope is already created as verbose.
+            </summary>
+            <param name="target">The event to log.</param>
+            <param name="options">Additional options for how to log the event.</param>
+            <param name="fillEnvelope">
+            A delegate that can enrich or override values in the envelope.
+            </param>
+        </member>
+        <member name="T:Microsoft.CommonSchema.Services.Logging.LogOption">
+            <summary>
+            Event logging options.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CommonSchema.Services.Logging.LogOption.None">
+            <summary>
+            No options set.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CommonSchema.Services.Logging.LogOption.Realtime">
+            <summary>
+            Log event on the real-time pipeline.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CommonSchema.Services.Logging.LogOption.Sensitive">
+            <summary>
+            Event contains sensitive information. Only send it to trusted pipelines.
+            </summary>
+        </member>
+    </members>
+</doc>

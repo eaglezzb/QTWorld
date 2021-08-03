@@ -1,0 +1,26 @@
+C:\prj\billing>billing.exe
+{
+
+rest/V5702004S0147/usage-report?month=2020-02&type=detail&fmt=Csv 
+rest/V5702004S0147/usage-report?month=2020-02&type=pricesheet&fmt=Csv  
+rest/V5702004S0147/usage-report?month=2020-02&type=summary&fmt=Csv 2020-02}
+
+{rest/V5702004S0147/usage-report?month=2020-03&type=detail&fmt=Csv rest/V5702004S0147/usage-report?month=2020-03&type=pricesheet&fmt=Csv  rest/V5702004S0147/usage-report?month=2020-03&type=summary&fmt=Csv 2020-03}
+{rest/V5702004S0147/usage-report?month=2020-04&type=detail&fmt=Csv rest/V5702004S0147/usage-report?month=2020-04&type=pricesheet&fmt=Csv  rest/V5702004S0147/usage-report?month=2020-04&type=summary&fmt=Csv 2020-04}
+{rest/V5702004S0147/usage-report?month=2020-05&type=detail&fmt=Csv rest/V5702004S0147/usage-report?month=2020-05&type=pricesheet&fmt=Csv  rest/V5702004S0147/usage-report?month=2020-05&type=summary&fmt=Csv 2020-05}
+{rest/V5702004S0147/usage-report?month=2020-06&type=detail&fmt=Csv rest/V5702004S0147/usage-report?month=2020-06&type=pricesheet&fmt=Csv  rest/V5702004S0147/usage-report?month=2020-06&type=summary&fmt=Csv 2020-06}
+{rest/V5702004S0147/usage-report?month=2020-07&type=detail&fmt=Csv rest/V5702004S0147/usage-report?month=2020-07&type=pricesheet&fmt=Csv  rest/V5702004S0147/usage-report?month=2020-07&type=summary&fmt=Csv 2020-07}
+{rest/V5702004S0147/usage-report?month=2020-08&type=detail&fmt=Csv rest/V5702004S0147/usage-report?month=2020-08&type=pricesheet&fmt=Csv  rest/V5702004S0147/usage-report?month=2020-08&type=summary&fmt=Csv 2020-08}
+{rest/V5702004S0147/usage-report?month=2020-09&type=detail&fmt=Csv rest/V5702004S0147/usage-report?month=2020-09&type=pricesheet&fmt=Csv  rest/V5702004S0147/usage-report?month=2020-09&type=summary&fmt=Csv 2020-09}
+{rest/V5702004S0147/usage-report?month=2020-10&type=detail&fmt=Csv rest/V5702004S0147/usage-report?month=2020-10&type=pricesheet&fmt=Csv  rest/V5702004S0147/usage-report?month=2020-10&type=summary&fmt=Csv 2020-10}
+{rest/V5702004S0147/usage-report?month=2020-11&type=detail&fmt=Csv rest/V5702004S0147/usage-report?month=2020-11&type=pricesheet&fmt=Csv  rest/V5702004S0147/usage-report?month=2020-11&type=summary&fmt=Csv 2020-11}
+{rest/V5702004S0147/usage-report?month=2020-12&type=detail&fmt=Csv rest/V5702004S0147/usage-report?month=2020-12&type=pricesheet&fmt=Csv  rest/V5702004S0147/usage-report?month=2020-12&type=summary&fmt=Csv 2020-12}
+{rest/V5702004S0147/usage-report?month=2021-01&type=detail&fmt=Csv rest/V5702004S0147/usage-report?month=2021-01&type=pricesheet&fmt=Csv  rest/V5702004S0147/usage-report?month=2021-01&type=summary&fmt=Csv 2021-01}
+{rest/V5702004S0147/usage-report?month=2021-02&type=detail&fmt=Csv rest/V5702004S0147/usage-report?month=2021-02&type=pricesheet&fmt=Csv  rest/V5702004S0147/usage-report?month=2021-02&type=summary&fmt=Csv 2021-02}
+{rest/V5702004S0147/usage-report?month=2021-03&type=detail&fmt=Csv rest/V5702004S0147/usage-report?month=2021-03&type=pricesheet&fmt=Csv  rest/V5702004S0147/usage-report?month=2021-03&type=summary&fmt=Csv 2021-03}
+{rest/V5702004S0147/usage-report?month=2021-04&type=detail&fmt=Csv rest/V5702004S0147/usage-report?month=2021-04&type=pricesheet&fmt=Csv  rest/V5702004S0147/usage-report?month=2021-04&type=summary&fmt=Csv 2021-04}
+{rest/V5702004S0147/usage-report?month=2021-05&type=detail&fmt=Csv rest/V5702004S0147/usage-report?month=2021-05&type=pricesheet&fmt=Csv  rest/V5702004S0147/usage-report?month=2021-05&type=summary&fmt=Csv 2021-05}
+{rest/V5702004S0147/usage-report?month=2021-06&type=detail&fmt=Csv rest/V5702004S0147/usage-report?month=2021-06&type=pricesheet&fmt=Csv  rest/V5702004S0147/usage-report?month=2021-06&type=summary&fmt=Csv 2021-06}
+{rest/V5702004S0147/usage-report?month=2021-07&type=detail&fmt=Csv rest/V5702004S0147/usage-report?month=2021-07&type=pricesheet&fmt=Csv  rest/V5702004S0147/usage-report?month=2021-07&type=summary&fmt=Csv 2021-07}
+{rest/V5702004S0147/usage-report?month=2021-08&type=detail&fmt=Csv rest/V5702004S0147/usage-report?month=2021-08&type=pricesheet&fmt=Csv  rest/V5702004S0147/usage-report?month=2021-08&type=summary&fmt=Csv 2021-08}
+parse error on line 1, column 1: bare " in non-quoted-field
