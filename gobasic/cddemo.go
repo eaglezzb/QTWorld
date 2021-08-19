@@ -8,6 +8,7 @@ json开头键名对应的值用于控制encoding/json包的编码和解码的行
 成员Tag中json对应值的第一部分用于指定JSON对象的名字
 */
 type response2 struct {
+    Page   int      `json:"page"` //这个是被json解析以后,转换json后的key名
     Fruits []string `json:"fruits"`
 }
 import "fmt"
