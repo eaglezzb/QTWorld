@@ -1,0 +1,11 @@
+Circulate:Yes
+Move:941,946
+Start
+Move:928,952
+Start
+Move:917,961
+Start
+Move:950,932
+Start
+Move:934,933
+Start
